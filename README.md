@@ -1,5 +1,5 @@
 # F1.5 Calculation
-A small Java program to calculate the standings for the Formula 1.5 Championship. This is the normal Formula 1 Championship excluding the top two teams and four drivers.
+A small Java program to calculate the standings for the Formula 1.5 Championship. This is the normal Formula 1 Championship excluding the top two teams and their drivers.
 
 ## Description
 This Java program will calculate the Formula 1.5 Championship results. This includes the WDC and the WCC. Two differing approaches will be taken to make these calculations. 
