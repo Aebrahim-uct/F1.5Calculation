@@ -20,23 +20,29 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * @author acee1
  *
  */
-public class webDataScraper {
+public class WebDataScraper {
 
 //	private String f1RaceURL = "https://www.formula1.com/en/results.html/2021/races.html";
 
 //	public webDataScraper() {
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) {
 
-		String inputRace = "Bahrain";
+		// Setting vars that will come as params
+		String inputRace = "Emilia Romagna";
 		String f1RaceURL = "https://www.formula1.com/en/results.html/2021/races.html";
 		String[] toBeRemoved = { "Hamilton", "Verstappen", "Bottas", "Perez" };
 
+		// Set WebDriver and navigate to URL
 		System.setProperty("webdriver.edge.driver", "./edgedriver_win64/msedgedriver.exe");
 
 		WebDriver driver = new EdgeDriver();
 
+		driver.manage().window().maximize();
+		
 		driver.get(f1RaceURL);
 
+		// Click past cookie button and navigate to the races page and click on relevant
+		// race
 		WebElement cookieButton = driver.findElement(By.id("truste-consent-button"));
 		cookieButton.click();
 
@@ -49,25 +55,59 @@ public class webDataScraper {
 			}
 		}
 
+		// Wait until page has loaded before reading data
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 		wait.until(ExpectedConditions
 				.presenceOfAllElementsLocatedBy(By.xpath("//a[@class='side-nav-item-link ArchiveLink selected']")));
-
-		List<WebElement> raceResultWebEl = driver.findElements(By.xpath("//span[@class='hide-for-mobile']"));
-
 		
+//		wait.until(ExpectedConditions.titleContains("RACE RESULT"));
+
+		// Retrieve the result data, Clean the data and then add to List of Strings
+//		System.out.println("Checking race results Lap");
+		List<WebElement> raceResultWebEl = driver.findElements(By.xpath("//span[@class='hide-for-mobile']"));
 		List<String> raceResult = new ArrayList<String>();
 		for (WebElement webEl : raceResultWebEl) {
 			raceResult.add(webEl.getAttribute("textContent"));
 		}
+
+		// Navigate to Fastest lap page
+		List<WebElement> navTabs = driver.findElements(By.xpath("//a[@class='side-nav-item-link ArchiveLink ']"));
+		for (WebElement webEl : navTabs) {
+			if (webEl.getText().equals("FASTEST LAPS")) {
+				webEl.click();
+//				System.out.println("Navigated");
+				break;
+			}
+		}
+
+		wait.until(ExpectedConditions.titleContains("FASTEST LAPS"));
 		
+//		System.out.println("Checking fastest Lap");
+		List<WebElement> lapResultWebEl = driver.findElements(By.xpath("//span[@class='hide-for-mobile']"));
+		List<String> lapResult = new ArrayList<>();
+		for (WebElement webEl : lapResultWebEl) {
+//			System.out.println(webEl.getAttribute("textContent"));
+			lapResult.add(webEl.getAttribute("textContent"));
+		}
+//		for(String s: lapResult) {
+//			System.out.println(s);
+//		}
+
 		for (String s : toBeRemoved) {
-			int pos=raceResult.indexOf(s);
+			int pos = raceResult.indexOf(s);
+			int pos1 = lapResult.indexOf(s);
 			raceResult.remove(pos);
+			lapResult.remove(pos1);
 		}
-		for (String s : raceResult) {
-			System.out.println(s);
+//		
+		int counter=1;
+		for(String s: raceResult) {
+			System.out.println(counter+": "+s);
+			counter++;
 		}
+		System.out.println(lapResult.get(0));
+		// Retrieve results and then clean for the fastest lap
+
 //		Thread.sleep(10000);
 //		driver.close();
 
