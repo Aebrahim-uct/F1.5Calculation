@@ -8,8 +8,8 @@ package files;
  */
 public class FinalResultCalculator {
 
-
 	public static void main(String[] args) {
-		//TODO Create WebScraper and return results from each race. Collate results and display within this class
+		// TODO Create WebScraper and return results from each race. Collate results and
+		// display within this class
 	}
 }
