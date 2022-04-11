@@ -4,6 +4,6 @@
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "../selenium-java-4.0.0/**/*.jar"
+        "lib/**/**/**.jar"
     ]
 }
