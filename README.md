@@ -10,5 +10,8 @@ Although the former option is slightly more roundabout, it was the initial basis
 
 ## Usage
 
+## References
+Pre-existing software used were the Selenium Java library, MSEdge WebDriver.
+
 ## License
 [LICENSE file](https://github.com/Aebrahim-uct/F1.5Calculation/blob/master/LICENSE)
