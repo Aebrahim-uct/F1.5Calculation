@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * Scrapes the stats from the f1 website using Selenium. Removes the top two
+ * Scrapes the stats from the f1 website using Selenium. Removes the top
  * teams and their drivers.
  * 
  * @author Abdullah
@@ -65,7 +65,7 @@ public class WebDataScraper {
 		}
 
 		// Navigate to Fastest lap page
-		WebElement fastestLapLink = driver.findElement(By.linkText("SPRINT"));
+		WebElement fastestLapLink = driver.findElement(By.linkText("FASTEST LAPS"));
 		fastestLapLink.click();
 
 		// Wait until page has loaded priot to reading data
