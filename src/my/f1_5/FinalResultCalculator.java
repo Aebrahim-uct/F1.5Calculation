@@ -1,3 +1,5 @@
+package my.f1_5;
+
 /**
  * Primary class that runs the entire calculation
  * 

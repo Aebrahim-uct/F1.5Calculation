@@ -1,8 +1,13 @@
+package my.f1_5;
+
 import java.time.Duration;
 //import java.io.FileWriter;
 //import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -119,9 +124,11 @@ public class WebDataScraper {
 	 * 
 	 * @param parRaceResults    - The race results to be cleaned
 	 * @param parFastLapResults - The fastest lap results to be cleaned
+	 * @param parTobeRemoved    - The drivers to be removed from the results
 	 * @return - The driver with the fastest lap after cleaning the data.
 	 */
-	private String cleanResults(List<String> parRaceResults, List<String> parFastLapResults) {
+	public List<List<String>> cleanResults(List<String> parRaceResults, List<String> parFastLapResults,
+			String[] parTobeRemoved) {
 		for (String s : toBeRemoved) {
 			int pos = parRaceResults.indexOf(s);
 			int pos1 = parFastLapResults.indexOf(s);
@@ -133,7 +140,7 @@ public class WebDataScraper {
 			}
 
 		}
-		return (parFastLapResults.get(0));
+		return null;
 	}
 
 	/**
@@ -141,13 +148,24 @@ public class WebDataScraper {
 	 * 
 	 * @param parSprintResults - The Sprint race results to be cleaned
 	 */
-	private void cleanSprint(List<String> parSprintResults) {
-		for (String s : toBeRemoved) {
-			int pos = parSprintResults.indexOf(s);
-			if (pos != -1) {
-				parSprintResults.remove(pos);
-			}
+	public static List<String> cleanSprint(List<String> parSprintResults, String[] parTobeRemoved) {
+		// List<String> res = parSprintResults.stream().filter(string ->
+		// string.equals())
+		// .collect(Collectors.toList());
+		List<String> res = parSprintResults.stream().collect(Collectors.toList());
+		for (String s : parTobeRemoved) {
+			res = res.stream().filter(string -> !string.equals(s))
+					.collect(Collectors.toList());
 		}
+
+		// List<String> res = Stream.of(parSprintResults).collect(Collectors.toList());
+		// for (String s : toBeRemoved) {
+		// int pos = parSprintResults.indexOf(s);
+		// if (pos != -1) {
+		// parSprintResults.remove(pos);
+		// }
+		// }
+		return null;
 	}
 
 }
