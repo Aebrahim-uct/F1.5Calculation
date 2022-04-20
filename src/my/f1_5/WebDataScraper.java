@@ -114,7 +114,7 @@ public class WebDataScraper {
 
 		// }
 
-		// driver.close();
+		driver.close();
 
 	}
 
@@ -127,45 +127,32 @@ public class WebDataScraper {
 	 * @param parTobeRemoved    - The drivers to be removed from the results
 	 * @return - The driver with the fastest lap after cleaning the data.
 	 */
-	public List<List<String>> cleanResults(List<String> parRaceResults, List<String> parFastLapResults,
+	public static List<List<String>> cleanResults(List<String> parRaceResults, List<String> parFastLapResults,
 			String[] parTobeRemoved) {
-		for (String s : toBeRemoved) {
-			int pos = parRaceResults.indexOf(s);
-			int pos1 = parFastLapResults.indexOf(s);
-			if (pos != -1) {
-				parRaceResults.remove(pos);
-			}
-			if (pos1 != -1) {
-				parFastLapResults.remove(pos1);
-			}
-
+		for (String s : parTobeRemoved) {
+			parRaceResults = parRaceResults.stream().filter(string -> !string.equals(s)).collect(Collectors.toList());
+			parFastLapResults = parFastLapResults.stream().filter(string -> !string.equals(s))
+					.collect(Collectors.toList());
 		}
-		return null;
+		List<List<String>> temp = new ArrayList<>();
+		temp.add(parRaceResults);
+		temp.add(parFastLapResults);
+		return temp;
 	}
 
 	/**
 	 * Cleans the results of the Sprint race by removing the excluded drivers.
 	 * 
-	 * @param parSprintResults - The Sprint race results to be cleaned
+	 * @param parSprintResults - Sprint race results to be cleaned
+	 * @param parTobeRemoved   - Names of driveres to be removed
+	 * @return - The cleaned List
 	 */
 	public static List<String> cleanSprint(List<String> parSprintResults, String[] parTobeRemoved) {
-		// List<String> res = parSprintResults.stream().filter(string ->
-		// string.equals())
-		// .collect(Collectors.toList());
-		List<String> res = parSprintResults.stream().collect(Collectors.toList());
 		for (String s : parTobeRemoved) {
-			res = res.stream().filter(string -> !string.equals(s))
+			parSprintResults = parSprintResults.stream().filter(string -> !string.equals(s))
 					.collect(Collectors.toList());
 		}
-
-		// List<String> res = Stream.of(parSprintResults).collect(Collectors.toList());
-		// for (String s : toBeRemoved) {
-		// int pos = parSprintResults.indexOf(s);
-		// if (pos != -1) {
-		// parSprintResults.remove(pos);
-		// }
-		// }
-		return null;
+		return parSprintResults;
 	}
 
 }
