@@ -100,14 +100,14 @@ public class WebDataScraper {
 		}
 
 		// Clean results and create objects to assign to array
-		// String fastestLap = cleanResults(raceResults, fastLapResults);
-		// if (sprintResults.isEmpty()) {
-		// allRaceResults[counter] = new ResultCalculator(raceResults, fastestLap);
-		// } else {
-		// cleanSprint(sprintResults);
-		// allRaceResults[counter] = new ResultCalculator(raceResults, fastestLap,
-		// sprintResults);
-		// }
+		if (sprintResults.isEmpty()) {
+			// allRaceResults[counter] = new ResultCalculator(raceResults, fastestLap);
+		} else {
+			List<List<String>> dataList = cleanResults(raceResults, fastLapResults, toBeRemoved);
+			// cleanSprint(sprintResults);
+			// allRaceResults[counter] = new ResultCalculator(raceResults, fastestLap,
+			// sprintResults);
+		}
 
 		counter++;
 		driver.get(f1RaceURL);
@@ -141,18 +141,21 @@ public class WebDataScraper {
 	}
 
 	/**
-	 * Cleans the results of the Sprint race by removing the excluded drivers.
 	 * 
-	 * @param parSprintResults - Sprint race results to be cleaned
-	 * @param parTobeRemoved   - Names of driveres to be removed
-	 * @return - The cleaned List
+	 * @param parRaceResults
+	 * @param parFastLapResults
+	 * @param parSprintResults
+	 * @param parTobeRemoved
+	 * @return
 	 */
-	public static List<String> cleanSprint(List<String> parSprintResults, String[] parTobeRemoved) {
+	public static List<List<String>> cleanResults(List<String> parRaceResults, List<String> parFastLapResults,
+			List<String> parSprintResults, String[] parTobeRemoved) {
+		List<List<String>> temp = cleanResults(parRaceResults, parFastLapResults, parTobeRemoved);
 		for (String s : parTobeRemoved) {
 			parSprintResults = parSprintResults.stream().filter(string -> !string.equals(s))
 					.collect(Collectors.toList());
 		}
-		return parSprintResults;
+		temp.add(parSprintResults);
+		return temp;
 	}
-
 }

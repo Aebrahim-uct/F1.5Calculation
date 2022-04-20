@@ -16,43 +16,48 @@ public class JUnitTests {
     // #region WebDataSceaper
 
     /**
-     * Automated testing for the CleanSprint method
+     * Automated testing for the CleanResult Overloaded methods
      */
     @Test
-    public void testCleanSprint() {
-        List<String> sprintResults = Arrays.asList("Verstappen", "Hamilton", "Perez", "Ocon", "Bottas", "Sainz",
-                "Vettel", "Alonso");
-        String[] names = { "Hamilton", "Verstappen", "Perez", "Bottas" };
-        System.out.println(sprintResults);
-        List<String> resultList = WebDataScraper.cleanSprint(sprintResults, names);
-        System.out.println(sprintResults);
-        List<String> expectedList = new ArrayList<>();
-        expectedList.add("Ocon");
-        expectedList.add("Sainz");
-        expectedList.add("Vettel");
-        expectedList.add("Alonso");
-        assertEquals(expectedList, resultList);
-    }
-
-    /**
-     * Automated testing for the CleanResult method
-     */
-    @Test
-    public void testCleanResults() {
+    public void testCleanResults1() {
         List<String> raceResultList = Arrays.asList("Verstappen", "Hamilton", "Perez", "Ocon", "Bottas", "Sainz",
                 "Vettel", "Alonso");
         List<String> fastLapList = Arrays.asList("Giovinazzi", "Gasly", "Mazepin", "Ocon", "Stroll", "Tsunoda",
                 "Verstappen", "Schumacher", "Hamilton", "Raikonnen", "Perez", "Latifi", "Bottas", "Sainz",
                 "Vettel", "Russel", "Alonso");
         String[] names = { "Hamilton", "Verstappen", "Perez", "Bottas" };
+
         List<List<String>> resultList = WebDataScraper.cleanResults(raceResultList, fastLapList, names);
-        System.out.println(resultList);
         List<String> temp1 = Arrays.asList("Ocon", "Sainz", "Vettel", "Alonso");
         List<String> temp2 = Arrays.asList("Giovinazzi", "Gasly", "Mazepin", "Ocon", "Stroll", "Tsunoda",
                 "Schumacher", "Raikonnen", "Latifi", "Sainz", "Vettel", "Russel", "Alonso");
         List<List<String>> test = new ArrayList<>();
         test.add(temp1);
         test.add(temp2);
+        assertEquals(test, resultList);
+    }
+
+    @Test
+    public void testCleanResults2() {
+        List<String> raceResultList = Arrays.asList("Verstappen", "Hamilton", "Perez", "Ocon", "Bottas", "Sainz",
+                "Vettel", "Alonso");
+        List<String> fastLapList = Arrays.asList("Giovinazzi", "Gasly", "Mazepin", "Ocon", "Stroll", "Tsunoda",
+                "Verstappen", "Schumacher", "Hamilton", "Raikonnen", "Perez", "Latifi", "Bottas", "Sainz",
+                "Vettel", "Russel", "Alonso");
+        List<String> sprintResults = Arrays.asList("Verstappen", "Hamilton", "Perez", "Ocon", "Bottas", "Sainz",
+                "Vettel", "Alonso");
+        String[] names = { "Hamilton", "Verstappen", "Perez", "Bottas" };
+
+        List<List<String>> resultList = WebDataScraper.cleanResults(raceResultList, fastLapList, sprintResults, names);
+        List<String> temp1 = Arrays.asList("Ocon", "Sainz", "Vettel", "Alonso");
+        List<String> temp2 = Arrays.asList("Giovinazzi", "Gasly", "Mazepin", "Ocon", "Stroll", "Tsunoda",
+                "Schumacher", "Raikonnen", "Latifi", "Sainz", "Vettel", "Russel", "Alonso");
+        List<String> temp3 = Arrays.asList("Ocon", "Sainz", "Vettel", "Alonso");
+
+        List<List<String>> test = new ArrayList<>();
+        test.add(temp1);
+        test.add(temp2);
+        test.add(temp3);
         assertEquals(test, resultList);
     }
     // #endregion
