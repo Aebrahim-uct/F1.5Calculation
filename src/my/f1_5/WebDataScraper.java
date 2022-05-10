@@ -5,9 +5,9 @@ import java.time.Duration;
 //import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
+// import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+// import java.util.stream.Stream;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -30,7 +30,6 @@ public class WebDataScraper {
 			"Styria", "Austria", "Great Britain", "Hungary", "Belgium", "Netherlands", "Italy", "Russia", "Turkey",
 			"United States", "Mexico", "Brazil", "Qatar", "Saudi Arabia", "Abu Dhabi" };
 	private String[] toBeRemoved = { "Hamilton", "Verstappen", "Bottas", "Perez" };
-	private ResultCalculator[] allRaceResults = new ResultCalculator[22];
 
 	// public WebDataScraper() {}
 
@@ -101,9 +100,10 @@ public class WebDataScraper {
 
 		// Clean results and create objects to assign to array
 		if (sprintResults.isEmpty()) {
+			List<List<String>> dataList = cleanResults(raceResults, fastLapResults, toBeRemoved);
 			// allRaceResults[counter] = new ResultCalculator(raceResults, fastestLap);
 		} else {
-			List<List<String>> dataList = cleanResults(raceResults, fastLapResults, toBeRemoved);
+			List<List<String>> dataList = cleanResults(raceResults, fastLapResults, sprintResults, toBeRemoved);
 			// cleanSprint(sprintResults);
 			// allRaceResults[counter] = new ResultCalculator(raceResults, fastestLap,
 			// sprintResults);
@@ -125,7 +125,7 @@ public class WebDataScraper {
 	 * @param parRaceResults    - The race results to be cleaned
 	 * @param parFastLapResults - The fastest lap results to be cleaned
 	 * @param parTobeRemoved    - The drivers to be removed from the results
-	 * @return - The driver with the fastest lap after cleaning the data.
+	 * @return - All the results for the respective race parts at a track
 	 */
 	public static List<List<String>> cleanResults(List<String> parRaceResults, List<String> parFastLapResults,
 			String[] parTobeRemoved) {
@@ -141,12 +141,14 @@ public class WebDataScraper {
 	}
 
 	/**
+	 * Cleans the results of the race, the sprint race, and the fastest lap records
+	 * by removing the excluded drivers.
 	 * 
-	 * @param parRaceResults
-	 * @param parFastLapResults
-	 * @param parSprintResults
-	 * @param parTobeRemoved
-	 * @return
+	 * @param parRaceResults    - The race results to be cleaned
+	 * @param parFastLapResults - The fastest lap results to be cleaned
+	 * @param parSprintResults  - The sprint results to be cleaned
+	 * @param parTobeRemoved    - The drivers to be removed from the results
+	 * @return - All the results for the respective race parts at a track
 	 */
 	public static List<List<String>> cleanResults(List<String> parRaceResults, List<String> parFastLapResults,
 			List<String> parSprintResults, String[] parTobeRemoved) {

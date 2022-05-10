@@ -16,7 +16,7 @@ public class JUnitTests {
     // #region WebDataSceaper
 
     /**
-     * Automated testing for the CleanResult Overloaded methods
+     * Automated testing for the CleanResult Overloaded method1
      */
     @Test
     public void testCleanResults1() {
@@ -37,6 +37,9 @@ public class JUnitTests {
         assertEquals(test, resultList);
     }
 
+    /**
+     * Automated testing for the CleanResult Overloaded method2
+     */
     @Test
     public void testCleanResults2() {
         List<String> raceResultList = Arrays.asList("Verstappen", "Hamilton", "Perez", "Ocon", "Bottas", "Sainz",
