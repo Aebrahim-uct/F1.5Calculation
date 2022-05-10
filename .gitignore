@@ -1,0 +1,5 @@
+.vscode/
+*.class
+lib/**/*
+edgedriver_win64/**/*
+!.gitkeep
